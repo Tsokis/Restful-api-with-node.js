@@ -1,0 +1,43 @@
+{
+    "emp1": {
+        "id": 1,
+        "name": "Nikos",
+        "age": "28",
+        "profession": "barista",
+        "PaymentMonth": "750",
+        "PaymentYear": "9000" 
+    },
+    "emp2": {
+        "id": 2,
+        "name": "Marrie",
+        "age": "33",
+        "profession": "Project Manager",
+        "PaymentMonth": "1200",
+        "PaymentYear": "14400"
+    },
+    "emp3": {
+        "id": 3,
+        "name": "George",
+        "age": "25",
+        "profession": "Developer",
+        "PaymentMonth": "1000",
+        "PaymentYear": "12000"
+    },
+    "emp4": {
+        "id": 4,
+        "name": "Jack",
+        "age": "38",
+        "profession": "Senior Developer",
+        "PaymentMonth": "1500",
+        "PaymentYear": "18000"
+    },
+    "emp5": {
+        "id": 5,
+        "name": "Test",
+        "age": "Unknown",
+        "profession": "Unknown",
+        "PaymentMonth": "600",
+        "PaymentYear": "6000"
+    }
+
+}
