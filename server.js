@@ -6,11 +6,7 @@ var fs = require('fs');
 
 app.use(morgan("combined"));
 
-fs.readFile('emp.json', 'utf-8', (err, data) => {
-    if (err) throw err;
-    let employees = JSON.parse(data);
-    console.log(employees);
-});
+
 
 app.get("/", (req,res) => {
     console.log("Test test test");
@@ -20,8 +16,12 @@ app.get("/", (req,res) => {
 
 app.get("/emplist", (req,res) => {
     console.log(req);
-    res.send("Employeelist is on!!")
-    
+    fs.readFile('emp.json', 'utf-8', (err, data) => {
+        if (err) throw err;
+        let employees = JSON.parse(data);
+        console.log(employees);
+        res.send(employees)
+    });    
 })
 
 app.get("/emplist/:id", (req,res) => {
