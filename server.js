@@ -30,14 +30,30 @@ app.get("/dbUsers/:id",(req,res) => {
         }
 
     });
-
-    connection.query('SELECT * FROM information', (err,rows,fields) => {
-        if(!!err) {
-            console.log('Query error');
-        } else {
-            console.log('Success');
-            res.json(rows);
-        }        
+    //fetching from database
+    const userId = req.params.id;
+    const queryString = 'SELECT * FROM information WHERE ID = ?'
+    connection.query(queryString,[userId], (err,rows,fields) => {
+        if(err) {
+            console.log('Query error'+ err);
+            res.sendStatus(500);
+            res.end();
+        } 
+        console.log('Success');
+        // Formatting my rows prettier.IN mySql i have them with Capital letters
+        const users = rows.map((row) => {
+            return {
+                id: row.ID,
+                name: row.NAME,
+                age: row.AGE,
+                profession: row.PROFESSION,
+                Payment: row.PAYMENT,
+                YearPayment: row.YEARPAYMENT
+                }
+        })
+        //res.json(rows);
+        res.json(users);
+              
     });   
     //connection.end();
     
