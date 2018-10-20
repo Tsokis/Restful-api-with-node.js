@@ -11,9 +11,38 @@ app.get("/", (req,res) => {
     res.send("Root test");
 })
 
+// fetching all database users
+app.get("/dbUsers", (req, res) => {
+    // Creating mySQL database
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'employees'
+    });
+    connection.connect((error) => {
+        if (!!error) {
+            console.log('Error');
+        } else {
+            console.log('Connected');
+        }
+
+    });
+    //fetching from database    
+    const queryString = 'SELECT * FROM information'
+    connection.query(queryString, (err, rows, fields) => {
+        if (err) {
+            console.log('Query error' + err);
+            res.sendStatus(500);
+            res.end();
+        }
+        console.log('Success');        
+        res.json(rows);
+    });
+})
 
 
-// Database Route
+// Database with id Route
 app.get("/dbUsers/:id",(req,res) => {    
     // Creating mySQL database
     const connection = mysql.createConnection({
@@ -51,12 +80,9 @@ app.get("/dbUsers/:id",(req,res) => {
                 YearPayment: row.YEARPAYMENT
                 }
         })
-        //res.json(rows);
         res.json(users);
               
-    });   
-    //connection.end();
-    
+    });       
 })
 
 
