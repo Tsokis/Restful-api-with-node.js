@@ -1,25 +1,64 @@
 const express = require('express');
 const app = express();
 const morgan  = require('morgan')
-var fs = require('fs');
+const fs = require('fs');
 const mysql = require('mysql');
+const bodyParser = require('body-parser');
 
-app.use(morgan("combined"));
 
-// Root route
-app.get("/", (req,res) => {
-    res.send("Root test");
-})
+//serving static files [The --public-- folder]
+app.use(express.static('./public'));
 
-// fetching all database users
-app.get("/dbUsers", (req, res) => {
-    // Creating mySQL database
-    const connection = mysql.createConnection({
+// morgan middleware
+app.use(morgan("short"));
+
+// body-parser middleware
+app.use(bodyParser.urlencoded({extended: false}))
+
+// public method for connection to our database 
+function getConnection() {
+    return mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
         database: 'employees'
     });
+}
+
+// ---------------------------POST METHODS-----------------------------------------
+app.post('/emp_form',(req, res) => {
+    console.log('post test');    
+    console.log("the name you enter is: " +req.body.createName);
+    // reading the name attributes of the html form
+    const name = req.body.createName;
+    const age = req.body.createAge;
+    const position = req.body.createPosition;
+    const queryString= "INSERT INTO information (NAME,AGE,PROFESSION) VALUES (?,?,?)"
+    getConnection().query(queryString,[name,age,position],(error,results,fields) => {
+        if (error) {
+            console.log("Failed to insert a new user" + error);
+            res.sendStatus(500);
+            return
+        }
+        results.insertId ++;
+        console.log("Inserted a new employee with id:", results.insertId);
+        res.end();
+    })  
+
+})
+
+
+
+// ---------------------------GET METHODS------------------------------------------
+// Root route
+app.get("/", (req,res) => {
+    res.send("Root test");
+})
+
+// Fetching all database users
+app.get("/dbUsers", (req, res) => {
+    // Creating mySQL database
+    const connection = getConnection();
     connection.connect((error) => {
         if (!!error) {
             console.log('Error');
@@ -28,7 +67,7 @@ app.get("/dbUsers", (req, res) => {
         }
 
     });
-    //fetching from database    
+    // Fetching from database[mySQL] 
     const queryString = 'SELECT * FROM information'
     connection.query(queryString, (err, rows, fields) => {
         if (err) {
@@ -42,15 +81,10 @@ app.get("/dbUsers", (req, res) => {
 })
 
 
-// Database with id Route
+// Fetching from the database with id Route
 app.get("/dbUsers/:id",(req,res) => {    
     // Creating mySQL database
-    const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'employees'
-    });
+    const connection = getConnection();
     connection.connect((error) => {
         if (!!error) {
             console.log('Error');
@@ -101,6 +135,7 @@ app.get("/emplist/:id", (req,res) => {
     console.log('emplist id'+req.params.id)
     res.end();
 })
+
 
 
 // Run server
