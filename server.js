@@ -30,20 +30,22 @@ app.post('/emp_form',(req, res) => {
     console.log('post test');    
     console.log("the name you enter is: " +req.body.createName);
     // reading the name attributes of the html form
+    let id = req.body.createId;
     const name = req.body.createName;
     const age = req.body.createAge;
     const position = req.body.createPosition;
-    const queryString= "INSERT INTO information (NAME,AGE,PROFESSION) VALUES (?,?,?)"
-    getConnection().query(queryString,[name,age,position],(error,results,fields) => {
+    const queryString= "INSERT INTO information (NAME,AGE,PROFESSION,ID) VALUES (?,?,?,?)"
+    getConnection().query(queryString,[name,age,position,id],(error,results,fields) => {
         if (error) {
             console.log("Failed to insert a new user" + error);
             res.sendStatus(500);
             return
         }
-        results.insertId ++;
+
+        
         console.log("Inserted a new employee with id:", results.insertId);
         res.end();
-    })  
+    })      
 
 })
 
