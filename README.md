@@ -7,7 +7,9 @@ Implementation of a restful api with node.js and express framework
 `localhost:3001/dbUsers`
 * mySql data fetch || localhost:3001/dbUsers/:id   
 `localhost:3001/dbUsers/1`    
-* Testing post request complete  ||  bug on id[not incrementing] so, i now have lot of dublicate IDs 
+* Testing post request complete,added id
+* Added new route   
+`localhost:3001/testroute`
 * Next crud operations   
 ***
 `Init Stage`
