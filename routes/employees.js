@@ -1,3 +1,4 @@
+'use strict';
 // MYSQL EMPLOYEES
 // importing express
 const express = require('express');
@@ -6,15 +7,19 @@ const mysql = require('mysql');
 //test route
 const router = express.Router();
 
-// public method for connection to our database 
+//connection pool
+const pool = mysql.createPool({
+    connectionLimit: 20,
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'employees'
+
+})
 function getConnection() {
-    return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'employees'
-    });
+    return pool;
 }
+
 
 // ---------------------------POST METHODS-----------------------------------------
 router.post('/emp_form', (req, res) => {
@@ -32,14 +37,11 @@ router.post('/emp_form', (req, res) => {
             res.sendStatus(500);
             return
         }
-
         console.log("Inserted a new employee with id:", results.insertId);
         res.end();
-    })
+    });
 
-})
-
-
+});
 
 // ---------------------------GET METHODS------------------------------------------
 // Root route
@@ -51,14 +53,7 @@ router.get("/", (req, res) => {
 router.get("/dbUsers", (req, res) => {
     // Creating mySQL database
     const connection = getConnection();
-    connection.connect((error) => {
-        if (!!error) {
-            console.log('Error');
-        } else {
-            console.log('Connected');
-        }
-
-    });
+        
     // Fetching from database[mySQL] 
     const queryString = 'SELECT * FROM information'
     connection.query(queryString, (err, rows, fields) => {
@@ -77,14 +72,7 @@ router.get("/dbUsers", (req, res) => {
 router.get("/dbUsers/:id", (req, res) => {
     // Creating mySQL database
     const connection = getConnection();
-    connection.connect((error) => {
-        if (!!error) {
-            console.log('Error');
-        } else {
-            console.log('Connected');
-        }
-
-    });
+    
     //fetching from database
     const userId = req.params.id;
     const queryString = 'SELECT * FROM information WHERE ID = ?'
@@ -93,8 +81,10 @@ router.get("/dbUsers/:id", (req, res) => {
             console.log('Query error' + err);
             res.sendStatus(500);
             res.end();
-        }
-        console.log('Success');
+        } else {
+            console.log('Success');
+
+        }       
         // Formatting my rows prettier.IN mySql i have them with Capital letters
         const users = rows.map((row) => {
             return {
@@ -105,10 +95,9 @@ router.get("/dbUsers/:id", (req, res) => {
                 Payment: row.PAYMENT,
                 YearPayment: row.YEARPAYMENT
             }
-        })
+        });
         res.json(users);
-
     });
-})
+});
 
 module.exports = router;
