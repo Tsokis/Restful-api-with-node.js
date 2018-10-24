@@ -14,8 +14,7 @@ const pool = mysql.createPool({
     user: 'root',
     password: '',
     database: 'employees'
-
-})
+});
 function getConnection() {
     return pool;
 }
@@ -40,8 +39,8 @@ router.post('/emp_form', (req, res) => {
         console.log("Inserted a new employee with id:", results.insertId);
         res.end();
     });
-
 });
+
 
 // ---------------------------GET METHODS------------------------------------------
 // Root route
@@ -98,6 +97,28 @@ router.get("/dbUsers/:id", (req, res) => {
         });
         res.json(users);
     });
+})
+
+router.get('/delete_emp/:id', (req, res) => {
+    const deleteConnection = getConnection();
+    const deleteId = req.params.id;
+    const deleteQueryString = 'DELETE FROM information WHERE ID = ?'
+    deleteConnection.query(deleteQueryString, [deleteId], (err, rows, fields) => {
+        if (err) {
+            console.log('Query error' + err);
+            res.sendStatus(500);
+            res.end();
+        } else {
+            console.log('Deleted');
+        }
+        //mysql query response
+        //res.json(rows);
+
+        res.json({
+            target: 'succesfull remove'
+        });
+    })
 });
+
 
 module.exports = router;
