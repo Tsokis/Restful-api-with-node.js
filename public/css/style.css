@@ -1,3 +1,33 @@
 body {
-    background-color: aqua;
+    background-color: #F8F8FF;
+}
+h2 {
+    margin-left: 200px;
+}
+
+input {
+    margin-top: 5px;
+    border-color: lightskyblue;    
+    width: 70%;
+    padding: 20px;
+}
+
+#submit {
+    margin-top: 5px;
+    width: 15%;
+}
+
+input::placeholder {
+    font-size: 1rem;
+    color: black;
+}
+
+input:hover{
+    background-color: gray;
+    color: white;
+}
+
+#submit:hover {
+    background-color: #5A5AFF;
+    color: white;
 }
