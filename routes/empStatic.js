@@ -1,4 +1,4 @@
-// JSON STATIC FILE
+// JSON STATIC FILE test route
 const express = require('express');
 const empStatic = express.Router();
 const fs = require('fs');
