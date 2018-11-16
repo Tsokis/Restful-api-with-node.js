@@ -1,5 +1,5 @@
 # Restful-api-with-node.js
-Implementation of a restful api with node.js and express framework  
+Implementation of a restful api with node.js, express framework and mysql for creating and manipulating employee data 
 `Currently displaying json on the html page`  
 * Test local Json file display   
 `localhost:3001/emplist`    
