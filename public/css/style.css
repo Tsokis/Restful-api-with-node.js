@@ -31,3 +31,15 @@ input:hover{
     background-color: #5A5AFF;
     color: white;
 }
+
+.container {
+    text-align: center;
+}
+
+textarea {
+    margin-top: 5px;
+    padding: 30px 40px 40px 30px;
+    margin: 5px 0px 0px;
+    width: 858px;
+    height: 178px;
+}
