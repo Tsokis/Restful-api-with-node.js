@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const router = require('./routes/employees');
 const testroute = require('./routes/testroute');
 const empStatic = require('./routes/empStatic');
+const products = require('./routes/products');
 //<------------------------------------------->
 
 //serving static files [The --public-- folder]
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(router);
 app.use(testroute);
 app.use(empStatic);
+app.use(products);
 
 
 // Run server
