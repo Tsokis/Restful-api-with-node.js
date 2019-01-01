@@ -42,4 +42,5 @@ textarea {
     margin: 5px 0px 0px;
     width: 858px;
     height: 178px;
+    border-left: 5px solid blue;
 }

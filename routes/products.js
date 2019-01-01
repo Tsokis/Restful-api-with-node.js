@@ -24,14 +24,14 @@ productsController.post('/product_form', (req, res) => {
     const title = req.body.createTitle;
     const desc = req.body.createDescription;
     const cost = req.body.createCost;
-    const queryString = "INSERT INTO motherboards (name,description,cost) VALUES (?,?,?)"
+    const queryString = "INSERT INTO motherboards (name,description,cost) VALUES (?,?,?)";
+    
     getConnection().query(queryString, [title, desc, cost], (error, results, fields) => {
         if (error) {
             console.log("Failed to insert a new user" + error);
             res.sendStatus(500);
             return
         }
-        console.log("Inserted a new product with id:", results.insertId);
         res.end();
     });
 });
@@ -42,7 +42,7 @@ productsController.post('/product_form', (req, res) => {
 productsController.get("/fetchProducts", (req, res) => {
     // Creating mySQL database
     const connection = getConnection();
-    // Fetching from database[mySQL] 
+    // Fetching from database[mySQL]  
     const queryString = 'SELECT * FROM motherboards'
     connection.query(queryString, (err, rows, fields) => {
         if (err) {

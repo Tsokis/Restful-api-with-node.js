@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
     <title>Products</title>
 </head>
 <body>
-
-<div>
-    <h2>Upload a motherboard product you want to sell</h2>
+<h2>Upload a motherboard product you want to sell</h2>
+<div class="container">   
     <form action="/product_form" method="POST">
-        <input type="text" placeholder="Enter a title" name="createTitle">
-        <textarea name="createDescription"  cols="80" rows="10">Leave a comment</textarea>
-        <input type="number" placeholder="how much does it cost" name="createCost">        
-        <input type="submit" name="submit" id="submit"></input>
+        <input type="text" placeholder="Enter a title" name="createTitle">        
+        <input type="number" placeholder="how much does it cost" name="createCost">   
+        <textarea name="createDescription" cols="80" rows="10" placeholder="Enter a full description"></textarea><br>
+        <input type="submit" name="submit" id="submit" value="Submit"></input>
     </form>
 </div>
     
